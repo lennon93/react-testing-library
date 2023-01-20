@@ -1,4 +1,4 @@
-import { screen } from '@testing-library/react';
+import { screen, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 import App from '../App';
@@ -22,5 +22,12 @@ describe('Teste o componente <App.js />', () => {
     const favoritePokemon = screen.getByRole('link', { name: 'Favorite Pokémon' });
     userEvent.click(favoritePokemon);
     screen.getByRole('link', { name: /Favorite Pokémon/i });
+  });
+  test('Teste se aplicação é redirecionada para a página Not Found ao entrar em uma URL desconhecida', () => {
+    const { history } = renderWithRouter(<App />);
+    act(() => {
+      history.push('/tantofaz');
+    });
+    screen.getByRole('heading', { name: 'Page requested not found' });
   });
 });
