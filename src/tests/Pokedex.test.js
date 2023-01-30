@@ -35,7 +35,6 @@ describe('Teste o componente <Pokedex.js />', () => {
   it('A partir da seleção de um botão de tipo, a Pokédex deve circular somente pelos Pokémon daquele tipo', () => {
     renderWithRouter(<App />);
     const psychicButton = screen.getByText(/Psychic/i);
-
     userEvent.click(psychicButton);
 
     const psychicPokemon = screen.getByRole('img', { name: /alakazam/i });
@@ -48,5 +47,22 @@ describe('Teste o componente <Pokedex.js />', () => {
     const psychicPokemon2 = screen.getByRole('img', { name: /mew/i });
     expect(psychicPokemon2).toBeInTheDocument();
     expect(psychicPokemon.src).toBe('https://archives.bulbagarden.net/media/upload/4/43/Spr_5b_151.png');
+  });
+  it('Teste se a Pokédex contém um botão para resetar o filtro', () => {
+    renderWithRouter(<App />);
+    const psychicButton = screen.getByText(/Psychic/i);
+    userEvent.click(psychicButton);
+
+    const psychicPokemon = screen.getByRole('img', { name: /alakazam/i });
+    expect(psychicPokemon).toBeInTheDocument();
+    expect(psychicPokemon.src).toBe('https://archives.bulbagarden.net/media/upload/8/88/Spr_5b_065_m.png');
+
+    const buttonAll = screen.getByText('All');
+    expect(buttonAll).toBeInTheDocument();
+    userEvent.click(buttonAll);
+
+    const inicialPokemon = screen.getByRole('img', { name: /pikachu/i });
+    expect(inicialPokemon).toBeInTheDocument();
+    expect(inicialPokemon.src).toBe('https://archives.bulbagarden.net/media/upload/b/b2/Spr_5b_025_m.png');
   });
 });
