@@ -33,20 +33,19 @@ describe('Teste o componente <Pokemon.js />', () => {
     const detail = screen.getByRole('link', { name: /More details/i });
     expect(detail).toHaveProperty('href', 'http://localhost/pokemon/25');
   });
-  it('Teste se existe um ícone de estrela nos Pokémon favoritados', () => {
+  it('Teste se não existe um ícone de estrela nos Pokémon desfavoritados', () => {
     renderWithRouter(<App />);
     const linkDetail = screen.getByRole('link', { name: /More details/i });
     userEvent.click(linkDetail);
 
     const favoritePokemon = screen.getByRole('checkbox', { name: /Pokémon favoritado?/i });
     userEvent.click(favoritePokemon);
+    userEvent.click(favoritePokemon);
 
     const home = screen.getByRole('link', { name: 'Home' });
     userEvent.click(home);
 
-    const image = screen.getByRole('img', { name: /pikachu is marked as favorite/i });
-    expect(image).toBeInTheDocument();
-    expect(image.src).toBe('http://localhost/star-icon.svg');
-    expect(image.alt).toBe('Pikachu is marked as favorite');
+    const image = screen.queryByRole('img', { name: /pikachu is marked as favorite/i });
+    expect(image).not.toBeInTheDocument();
   });
 });
