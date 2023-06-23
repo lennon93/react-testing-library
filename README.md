@@ -18,6 +18,7 @@ Foi criado todos os testes para cada requisito implementado na Pokédex, garanti
 - Javascript </br>
 - Jest </br>
 - Router </br>
+- HTML </br>
 
 
 </br>
